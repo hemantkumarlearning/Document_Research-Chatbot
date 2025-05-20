@@ -5,7 +5,7 @@ A fully functional, web-based AI-powered chatbot that allows users to upload doc
 
 - Upload PDF, DOCX, and Image files.
 
- -Extract text, page, and paragraph-level metadata.
+- Extract text, page, and paragraph-level metadata.
 
 - Store data in PostgreSQL using SQLAlchemy.
 
@@ -41,16 +41,16 @@ A fully functional, web-based AI-powered chatbot that allows users to upload doc
 
 ### 1. Clone the Repository
 ```
-git clone https://github.com/yourusername/yourprojectname.git
-cd yourprojectname
+git clone https://github.com/hemantkumarlearning/hemant-kumar-wasserstoff-AiInternTask.git
+cd hemant-kumar-wasserstoff-AiInternTask
 ```
 
 ### 2. Backend Setup
 
 ```
-cd backend
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/Scripts/activate
+cd backend
 pip install -r requirements.txt
 ```
 
@@ -58,6 +58,7 @@ Create a .env file with your database and API keys:
 ```
 DATABASE_URL=postgresql://username:password@localhost:5432/yourdb
 GROQ_API_KEY=your_groq_api_key
+DATABASE_URL = your_postgresql_database_url
 ```
 
 Run the FastAPI server:
