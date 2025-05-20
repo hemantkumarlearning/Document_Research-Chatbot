@@ -1,5 +1,5 @@
 from fastapi import FastAPI 
-from backend.services.faiss_service import load_all_indices
+# from backend.services.faiss_service import load_all_indices
 from backend.routers import upload, documents,chat,theme
 from backend.database.db import init_db
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,6 +23,6 @@ app.include_router(theme.router)
 
 @app.on_event("startup")
 def startup_event():
-    load_all_indices()
+    # load_all_indices()
     init_db()
     
