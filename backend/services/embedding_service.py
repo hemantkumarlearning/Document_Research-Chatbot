@@ -1,6 +1,7 @@
 from sentence_transformers import SentenceTransformer 
 
-model = SentenceTransformer('all-MiniLM-L6-v2')
+# Load the sentence-transformer model
+model = SentenceTransformer('all-MiniLM-L6-v2') # Lightweight model with good performance
 
 def embed_text(text):
     return model.encode(text) 
