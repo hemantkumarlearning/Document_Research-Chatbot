@@ -1,6 +1,4 @@
 import fitz  # PyMuPDF for reading PDFs
-import docx  # For reading DOCX files (not used here, but likely part of your full pipeline)
-from PIL import Image  # Image processing
 import tempfile  # For handling temporary files
 
 def extract_text(file):
