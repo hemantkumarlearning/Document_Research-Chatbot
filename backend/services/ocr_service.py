@@ -1,6 +1,5 @@
 import fitz  # PyMuPDF for reading PDFs
 import docx  # For reading DOCX files (not used here, but likely part of your full pipeline)
-import pytesseract  # OCR for images
 from PIL import Image  # Image processing
 import tempfile  # For handling temporary files
 
@@ -31,24 +30,5 @@ def extract_text(file):
                             "para": j + 1,
                             "text": block[4].strip()
                         })
-
-    # If the uploaded file is an image
-    elif filename.endswith((".png", ".jpg", ".jpeg")):  # Corrected tuple check
-        # Save the image to a temporary file
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as temp_img:  # Use correct suffix for PIL
-            temp_img.write(contents)
-            temp_img.close()
-
-            image = Image.open(temp_img.name)  # Open the image using PIL
-            text = pytesseract.image_to_string(image)  # Extract text using OCR
-
-            # Split text by lines and clean up
-            for i, para in enumerate(text.split("\n")):
-                if para.strip():
-                    paragraphs.append({
-                        "page": 1,
-                        "para": i + 1,
-                        "text": para.strip()
-                    })
 
     return paragraphs  # Return the structured text output
