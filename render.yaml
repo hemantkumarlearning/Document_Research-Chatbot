@@ -11,9 +11,7 @@ services:
       - key: GROQ_API_KEY
         value: your-actual-key-or-use-secret
       - key: DATABASE_URL
-        fromDatabase:
-          name: research_doc
-          property: connectionString
+        value: postgresql://doc_user:7R31q2a1RY4k9vzBJfRZVMz4InM3bIZz@dpg-d0llu9adbo4c73apjr40-a/research_doc
 
   - type: web
     name: streamlit-frontend
