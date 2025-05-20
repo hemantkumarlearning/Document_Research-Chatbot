@@ -6,8 +6,6 @@ from backend.services.embedding_service import embed_text
 
 
 SAVE_DIR = "/var/data/embedding_store"
-os.makedirs(SAVE_DIR, exist_ok=True)
-
 
 def save_index_and_meta(doc_id, index, meta):
 
@@ -30,6 +28,8 @@ def embed_and_store(doc_id,paragraphs):
     save_index_and_meta(doc_id, index, paragraphs)
 
 def load_all_indices():
+    if not os.path.exists(SAVE_DIR):
+        os.makedirs(SAVE_DIR, exist_ok=True)
     files = os.listdir(SAVE_DIR)
     if not files:
         print("[INFO] No embeddings found. Skipping load.")
