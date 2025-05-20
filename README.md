@@ -1,4 +1,4 @@
-## Document-Aware Chatbot with Semantic Search and Theming
+## Document-Aware Chatbot
 A fully functional, web-based AI-powered chatbot that allows users to upload documents (PDF, DOCX, Images), extract and store text in a database, and then chat or query these documents using semantic search powered by sentence-transformers, FAISS, and Groq LLaMA models. The application also supports theme-based querying across documents.
 
 ## Features
