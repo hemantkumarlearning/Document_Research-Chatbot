@@ -2,8 +2,9 @@ from sqlalchemy import create_engine, Column, Integer, String, Text,ForeignKey
 from sqlalchemy.ext.declarative import declarative_base 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import relationship
+import os
 
-SQLALCHEMY_DATABASE_URL = "postgresql://user_doc:user123@localhost/research_doc" 
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 engine = create_engine(SQLALCHEMY_DATABASE_URL) 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine) 
 Base = declarative_base()
