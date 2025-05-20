@@ -25,4 +25,4 @@ services:
     startCommand: streamlit run frontend/app.py --server.port 10001
     envVars:
       - key: BACKEND_URL
-        value: https://fastapi-backend.onrender.com
+        value: https://fastapi-backend-g4cu.onrender.com
