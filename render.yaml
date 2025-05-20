@@ -19,6 +19,7 @@ services:
         mountPath: /var/data/embedding_store
         sizeGB: 1
 
+
   - type: web
     name: streamlit-frontend
     env: python
