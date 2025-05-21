@@ -8,3 +8,4 @@ SQLAlchemy==2.0.41
 psycopg2-binary==2.9.10
 uvicorn==0.34.2
 openai==1.79.0
+sentence-transformers==4.1.0

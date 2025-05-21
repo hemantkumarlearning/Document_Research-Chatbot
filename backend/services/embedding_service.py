@@ -1,17 +1,19 @@
-# from sentence_transformers import SentenceTransformer 
+# import requests
+# import os
+# import json
 
-# # Load the sentence-transformer model
-# model = SentenceTransformer('all-MiniLM-L6-v2') # Lightweight model with good performance
-import openai
-import os
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# EMBED_URL = os.getenv("EMBEDDING_URL")
 
-def embed_text(text: str, model="text-embedding-3-small"):
-    response = openai.embeddings.create(
-        input=text,
-        model=model
-    )
-    return response.data[0].embedding
+# def embed_text(texts):
+#     headers = {"Content-Type": "application/json"}
+#     payload = {"texts": texts}
 
-  # Replace with your actual key
+#     res = requests.post(f"{EMBED_URL}", headers=headers,data=json.dumps(payload))
+#     return res.json()["embeddings"]
 
+from sentence_transformers import SentenceTransformer 
+
+model = SentenceTransformer("paraphrase-MiniLM-L3-v2")
+
+def embed_text(text):
+    return model.encode(text)
