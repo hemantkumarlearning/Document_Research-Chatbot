@@ -1,20 +1,22 @@
 import faiss
 import numpy as np
-# import os
-# import pickle
+import os
+import pickle
 from backend.services.embedding_service import embed_text
 
 # Directory to save/load FAISS indices and metadata
-# SAVE_DIR = "/var/data/embedding_store"
+SAVE_DIR = "backend/embedding_store"
+# os.makedirs(SAVE_DIR,exist_ok=True)
 
-# def save_index_and_meta(doc_id, index, meta):
 
-#      # Save FAISS index
-#     faiss.write_index(index, os.path.join(SAVE_DIR, f"{doc_id}.index"))
+def save_index_and_meta(doc_id, index, meta):
+
+     # Save FAISS index
+    faiss.write_index(index, os.path.join(SAVE_DIR, f"{doc_id}.index"))
     
-#      # Save associated metadata using pickle
-#     with open(os.path.join(SAVE_DIR, f"{doc_id}_meta.pkl"), "wb") as f:
-#         pickle.dump(meta, f)
+     # Save associated metadata using pickle
+    with open(os.path.join(SAVE_DIR, f"{doc_id}_meta.pkl"), "wb") as f:
+        pickle.dump(meta, f)
 
 # In-memory maps to hold FAISS indices and metadata per document
 index_map={}
@@ -38,36 +40,36 @@ def embed_and_store(doc_id,paragraphs):
     meta_map[doc_id] = paragraphs
 
     # Save to disk
-    # save_index_and_meta(doc_id, index, paragraphs)
+    save_index_and_meta(doc_id, index, paragraphs)
 
 
  #Load all saved FAISS indices and metadata from disk into memory.
-# def load_all_indices():
-#     if not os.path.exists(SAVE_DIR):
-#         os.makedirs(SAVE_DIR, exist_ok=True)
-#     files = os.listdir(SAVE_DIR)
-#     if not files:
-#         print("[INFO] No embeddings found. Skipping load.")
-#         return
+def load_all_indices():
+    if not os.path.exists(SAVE_DIR):
+        os.makedirs(SAVE_DIR, exist_ok=True)
+    files = os.listdir(SAVE_DIR)
+    if not files:
+        print("[INFO] No embeddings found. Skipping load.")
+        return
 
-#     for file in files:
-#         if file.endswith(".index"):
-#             doc_id = int(file.replace(".index", ""))
-#             index_path = os.path.join(SAVE_DIR, file)
-#             meta_path = os.path.join(SAVE_DIR, f"{doc_id}_meta.pkl")
+    for file in files:
+        if file.endswith(".index"):
+            doc_id = int(file.replace(".index", ""))
+            index_path = os.path.join(SAVE_DIR, file)
+            meta_path = os.path.join(SAVE_DIR, f"{doc_id}_meta.pkl")
 
-#               # Load FAISS index
-#             index = faiss.read_index(index_path)
+              # Load FAISS index
+            index = faiss.read_index(index_path)
 
-#              # Load metadata
-#             with open(meta_path, "rb") as f:
-#                 meta = pickle.load(f)
+             # Load metadata
+            with open(meta_path, "rb") as f:
+                meta = pickle.load(f)
 
-#              # Populate in-memory maps
-#             index_map[doc_id] = index
-#             meta_map[doc_id] = meta
+             # Populate in-memory maps
+            index_map[doc_id] = index
+            meta_map[doc_id] = meta
 
-# Perform semantic search on a single document's paragraphs.
+#Perform semantic search on a single document's paragraphs.
 def search_similar_paragraphs(doc_id,query,top_k=3):
     if doc_id  not in index_map:
         return []
