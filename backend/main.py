@@ -5,9 +5,11 @@ from backend.database.db import init_db
 from fastapi.middleware.cors import CORSMiddleware
 
 
-
+# Create the FastAPI application instance
 app = FastAPI()
 
+# Add CORS middleware to allow requests from any origin
+# This is useful when the frontend and backend are hosted on different domains
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -16,6 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Define startup event to run initial setup tasks
 app.include_router(upload.router) 
 app.include_router(documents.router) 
 app.include_router(chat.router) 

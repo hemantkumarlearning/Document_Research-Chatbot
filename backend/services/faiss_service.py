@@ -73,7 +73,7 @@ def load_all_indices():
 def search_similar_paragraphs(doc_id,query,top_k=3):
     if doc_id  not in index_map:
         return []
-    query_vec = embed_text([query])
+    query_vec = embed_text([query])  #Encode the query text into vactors
     D,I = index_map[doc_id].search(np.array(query_vec).astype('float32'),top_k)
     result = [meta_map[doc_id][i] for i in I[0]]
     return result

@@ -1,11 +1,13 @@
 import requests
 import os
 
+# Load groq api key from environment variables
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+# return document id, extracted answer and citation from document id and matched paragraphs
 def query_llm(doc_id,matched_paragraphs): 
-    context = "\n\n".join([p['text'] for p in matched_paragraphs])
-    citation = [(p['page'],p['para']) for p in matched_paragraphs]
+    context = "\n\n".join([p['text'] for p in matched_paragraphs]) #Join all paragraphs text into a single text
+    citation = [(p['page'],p['para']) for p in matched_paragraphs] #Extract all page and paragraphs
     prompt = f"""You are given text extracted from documents and their citations (page and paragraph numbers).
 
 Document ID:  
@@ -18,7 +20,7 @@ Para Y
 Page Z,  
 Para A
 
-Use line breaks exactly as shown. Only include the summary and the list of citations. Do not include any explanation or commentary.
+Use line breaks exactly as shown. Only include the summary and the list of citations. Do not include any explanation, commentary and preamble.
 
 Here is the text to summarize:
 {context}

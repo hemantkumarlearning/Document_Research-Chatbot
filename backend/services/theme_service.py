@@ -1,8 +1,10 @@
 import requests
 import os
 
+#Load groq api key from environmental variable
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+#Return all synthesize themes with document id which is semantic related to the question
 def synthesize_themes_all_documents(matches,question):
     grouped_by_doc = {}
     for match in matches:
@@ -27,10 +29,10 @@ Relevant Information:
 {synthesis_input}
 
 Respond in the following format:
-Theme 1 – [Theme Title]:
-Documents (DOC001, DOC002) indicate that ...
-Theme 2 – [Theme Title]:
-DOC003 suggests that ...
+Theme 1 - [Theme Title]:
+Documents number indicate that ...
+Theme 2 - [Theme Title]:
+Document number suggests that ...
 """
     response = requests.post(
         "https://api.groq.com/openai/v1/chat/completions",
