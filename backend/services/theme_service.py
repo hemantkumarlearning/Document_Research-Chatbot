@@ -1,4 +1,6 @@
-import requests
+from langchain_groq import ChatGroq
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain 
 import os
 
 #Load groq api key from environmental variable
@@ -17,8 +19,12 @@ def synthesize_themes_all_documents(matches,question):
         combined_text = " ".join(texts)
         synthesis_input += f"\nDocument {doc_id}:\n{combined_text}\n"
 
-        prompt = f"""You are an expert legal analyst. You are given a user question and relevant excerpts from multiple documents. 
+        prompt_template = PromptTemplate(
+        input_variables=["question", "synthesis_input"],
+        template="""
+You are an expert legal analyst. You are given a user question and relevant excerpts from multiple documents. 
 Your task is to synthesize coherent and distinct themes from the provided information.
+
 - Clearly identify multiple themes if they exist.
 - Support each theme with references to document IDs.
 - Return the final response in a professional and structured format.
@@ -31,20 +37,25 @@ Relevant Information:
 Respond in the following format:
 Theme 1 - [Theme Title]:
 Documents number indicate that ...
+
 Theme 2 - [Theme Title]:
 Document number suggests that ...
 """
-    response = requests.post(
-        "https://api.groq.com/openai/v1/chat/completions",
-        headers={
-            "Authorization": f"Bearer {GROQ_API_KEY}",
-            "Content-Type": "application/json"
-        },
-        json={
-            "model": "llama3-8b-8192",
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0.7
-        }
-    ) 
-    return response.json()["choices"][0]["message"]["content"]
+    )
+    llm = ChatGroq(
+        temperature=0,
+        groq_api_key=GROQ_API_KEY,
+        model_name='llama-3.3-70b-versatile'
+    )
+
+    # Set up the chain
+    chain = LLMChain(prompt=prompt_template, llm=llm)
+
+    # Run the chain with inputs
+    response = chain.run({
+        "question": question,
+        "synthesis_input": synthesis_input
+    })
+
+    return response.strip()
 
