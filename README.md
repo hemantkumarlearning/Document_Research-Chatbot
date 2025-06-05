@@ -41,8 +41,8 @@ A fully functional, web-based AI-powered chatbot that allows users to upload doc
 
 ### 1. Clone the Repository
 ```
-git clone https://github.com/hemantkumarlearning/hemant-kumar-wasserstoff-AiInternTask.git
-cd hemant-kumar-wasserstoff-AiInternTask
+git clone https://github.com/hemantkumarlearning/Document_Research-Chatbot.git
+cd Document_Research-Chatbot
 ```
 
 ### 2. Backend Setup
